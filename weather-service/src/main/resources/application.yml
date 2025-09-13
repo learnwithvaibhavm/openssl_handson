@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
+
+weather:
+  api:
+    key: 97226f349461a244580632e2e285cc22

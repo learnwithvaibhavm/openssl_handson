@@ -1,0 +1,4 @@
+com\example\weatherservice\WeatherServiceApplication.class
+com\example\weatherservice\controller\WeatherController.class
+com\example\weatherservice\model\WeatherResponse.class
+com\example\weatherservice\service\WeatherService.class
