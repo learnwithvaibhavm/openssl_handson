@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import javax.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/weather")
+@Validated
 @Api(value = "Weather Controller", description = "Operations for retrieving weather information")
 public class WeatherController {
     
@@ -35,15 +38,10 @@ public class WeatherController {
     })
     public ResponseEntity<WeatherResponse> getWeather(
             @ApiParam(value = "City name", required = true)
-            @RequestParam String city) {
+            @RequestParam @NotBlank(message = "City name cannot be empty") String city) {
         logger.info("Received weather request for city: {}", city);
-        try {
-            WeatherResponse weather = weatherService.getWeatherForCity(city);
-            logger.info("Successfully retrieved weather data for city: {}", city);
-            return ResponseEntity.ok(weather);
-        } catch (Exception e) {
-            logger.error("Error retrieving weather data for city: {}. Error: {}", city, e.getMessage());
-            throw e;
-        }
+        WeatherResponse weather = weatherService.getWeatherForCity(city);
+        logger.info("Successfully retrieved weather data for city: {}", city);
+        return ResponseEntity.ok(weather);
     }
 }
