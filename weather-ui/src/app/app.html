@@ -1,0 +1,72 @@
+<div class="container">
+  <h1><span class="material-icons">wb_sunny</span> Weather App</h1>
+
+  <div class="input-section">
+    <div class="search-container">
+      <div class="search-box">
+        <span class="material-icons search-icon">search</span>
+        <input 
+          [(ngModel)]="city" 
+          placeholder="Enter city name..." 
+          (keyup.enter)="fetchWeather()"
+        />
+      </div>
+      <div class="action-buttons">
+        <button type="button" class="btn btn-primary" (click)="fetchWeather()">
+          <span class="material-icons">cloud</span>
+          Get Weather
+        </button>
+        @if (weatherData.length > 0) {
+          <button type="button" class="btn btn-danger" (click)="clearWeatherData()">
+            <span class="material-icons">clear_all</span>
+            Clear All
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p>Fetching weather data...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      <span class="material-icons">error_outline</span>
+      {{ error }}
+    </div>
+  }
+
+  @if (weatherData.length > 0) {
+    <div class="weather-grid">
+      @for (w of weatherData; track w.city) {
+        <div class="weather-card">
+          <div class="card-header">
+            <h2>{{ w.city }}</h2>
+          </div>
+          <div class="card-body">
+            <div class="weather-info">
+              <div class="info-item">
+                <span class="label">
+                  <span class="material-icons">thermostat</span>
+                  Temperature
+                </span>
+                <span class="value">{{ w.temperature }}°C</span>
+              </div>
+              <div class="info-item">
+                <span class="label">
+                  <span class="material-icons">water_drop</span>
+                  Humidity
+                </span>
+                <span class="value">{{ w.humidity }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
